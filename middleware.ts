@@ -10,6 +10,12 @@ export const config = {
 export async function middleware(request: NextRequest, event: NextFetchEvent) {
   let response = NextResponse.next();
 
+  // set a shopper cookie if one doesn't exist or has been cleared
+  if (!request.cookies.has("shopper")) {
+    const newShopperId = Math.random().toString(36).substring(2);
+    response.cookies.set("shopper", newShopperId);
+  }
+
   const context = {
     /* pass context on whatever your flag will need */
     event,
@@ -21,16 +27,10 @@ export async function middleware(request: NextRequest, event: NextFetchEvent) {
 
     // rewrites the request to the variant for this flag combination
     const nextUrl = new URL(
-      `/${code}${request.nextUrl.pathname}${request.nextUrl.search}`,
+      `/precomputed/${code}${request.nextUrl.pathname}${request.nextUrl.search}`,
       request.url
     );
     response = NextResponse.rewrite(nextUrl, { request });
-  }
-
-  // set a shopper cookie if one doesn't exist or has been cleared
-  if (!request.cookies.has("shopper")) {
-    const newShopperId = Math.random().toString(36).substring(2);
-    response.cookies.set("shopper", newShopperId);
   }
 
   return response;

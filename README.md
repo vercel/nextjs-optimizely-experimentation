@@ -69,7 +69,7 @@ To configure your Optimizely webhook:
 3. Select the "Webhooks" tab.
 4. Click "Create New Webhook".
 5. Provide a name for your webhook.
-6. Set the URL to the location of your Next.js Optimizely webhook route (`https://[project domain]/api/.well-known/vercel/webhooks/optimizely`).
+6. Set the URL to the location of your Next.js Optimizely webhook route (`https://[project domain]/api/optimizely`).
 7. Under events, ensure the following events are selected:
    1. Datafile: Updated
    2. Flag: Created, Updated, Archived, Deleted
@@ -88,7 +88,7 @@ To configure your Optimizely webhook:
 | `/app/product/[slug]/page.tsx`                         | Product detail page                                                                |
 | `/app/cart/page.tsx`                                   | Cart page                                                                          |
 | `/app/.well-known/vercel/flags/route.ts`               | API route exposing flags to toolbar                                                |
-| `/app/.well-known/vercel/webhooks/optimizely/route.ts` | API route called by optimizely to store experimentation data in Vercel Edge Config |
+| `/app/api/optimizely/route.ts`                         | API route called by optimizely to store experimentation data in Vercel Edge Config |
 | `/lib/actions.ts`                                      | File containing server actions (e.g. track purchase event)                         |
 | `/lib/flags.ts`                                        | Contains declared flags and precomputed flags                                      |
 | `/middleware.ts`                                       | Evaluates precomputed flags, set new shopper cookie                                |

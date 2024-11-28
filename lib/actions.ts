@@ -54,3 +54,9 @@ export async function placeOrder() {
   await trackProductPurchase();
   redirect("/success");
 }
+
+export async function getShopperCookie(): Promise<string | "default"> {
+  const cookieStore = await cookies();
+  const cookie = cookieStore.get("shopper");
+  return cookie?.value ? cookie.value : "default";
+}

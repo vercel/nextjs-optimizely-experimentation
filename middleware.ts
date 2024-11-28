@@ -21,7 +21,7 @@ export async function middleware(request: NextRequest, event: NextFetchEvent) {
 
     // rewrites the request to the variant for this flag combination
     const nextUrl = new URL(
-      `/${code}${request.nextUrl.pathname}${request.nextUrl.search}`,
+      `/precomputed/${code}${request.nextUrl.pathname}${request.nextUrl.search}`,
       request.url
     );
     response = NextResponse.rewrite(nextUrl, { request });

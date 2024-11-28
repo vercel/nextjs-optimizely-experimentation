@@ -1,7 +1,5 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
-import { cookies } from 'next/headers'
-
 
 const formatter = new Intl.NumberFormat("en-US", {
   style: "currency",

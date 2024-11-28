@@ -1,6 +1,6 @@
 import optimizely from "@optimizely/optimizely-sdk";
 import { unstable_flag as flag } from "@vercel/flags/next";
-import { getShopperCookie } from "./utils";
+import { getShopperCookie } from "./actions";
 import { get } from "@vercel/edge-config";
 
 export const showBuyNowFlag = flag<{

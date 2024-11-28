@@ -1,6 +1,7 @@
 import { type ClassValue, clsx } from "clsx";
-import { ReadonlyHeaders } from "next/dist/server/web/spec-extension/adapters/headers";
 import { twMerge } from "tailwind-merge";
+import { cookies } from 'next/headers'
+
 
 const formatter = new Intl.NumberFormat("en-US", {
   style: "currency",
@@ -11,18 +12,10 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export function getShopperFromHeaders(
-  headers: ReadonlyHeaders
-): string | "default" {
-  const cookieString = headers.get("cookie");
-  if (!cookieString) {
-    return "default";
-  }
-  const cookies = cookieString.split("; ");
-  const cookie = cookies.find((cookie: any) =>
-    cookie.startsWith("shopper" + "=")
-  );
-  return cookie ? cookie.split("=")[1] : "default";
+export async function getShopperCookie(): Promise<string | "default"> {
+  const cookieStore = await cookies();
+  const cookie = cookieStore.get("shopper");
+  return cookie?.value ? cookie.value : "default";
 }
 
 export function formatUSD(amount: number) {

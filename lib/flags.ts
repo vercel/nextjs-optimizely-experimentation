@@ -1,6 +1,6 @@
 import optimizely from "@optimizely/optimizely-sdk";
 import { unstable_flag as flag } from "@vercel/flags/next";
-import { getShopperFromHeaders } from "./utils";
+import { getShopperCookie } from "./utils";
 import { get } from "@vercel/edge-config";
 
 export const showBuyNowFlag = flag<{
@@ -13,7 +13,7 @@ export const showBuyNowFlag = flag<{
     { label: "Hide", value: { enabled: false } },
     { label: "Show", value: { enabled: true } },
   ],
-  async decide({ headers }) {
+  async decide() {
     const datafile = await get("datafile");
 
     if (!datafile) {
@@ -26,7 +26,7 @@ export const showBuyNowFlag = flag<{
       const client = optimizely.createInstance({
         datafile: datafile as object,
         eventDispatcher: {
-          dispatchEvent: (event) => {},
+          dispatchEvent: (_event) => {},
         },
       });
 
@@ -36,7 +36,7 @@ export const showBuyNowFlag = flag<{
 
       await client.onReady({ timeout: 500 });
 
-      const shopper = getShopperFromHeaders(headers);
+      const shopper = await getShopperCookie();
       const context = client.createUserContext(shopper);
 
       if (!context) {
@@ -64,7 +64,7 @@ export const showPromoBannerFlag = flag<boolean>({
     { value: false, label: "Hide" },
     { value: true, label: "Show" },
   ],
-  async decide({ headers }) {
+  async decide() {
     const datafile = await get("datafile");
 
     if (!datafile) {
@@ -87,7 +87,7 @@ export const showPromoBannerFlag = flag<boolean>({
 
       await client.onReady({ timeout: 500 });
 
-      const shopper = getShopperFromHeaders(headers);
+      const shopper = await getShopperCookie();
       const context = client!.createUserContext(shopper);
 
       if (!context) {

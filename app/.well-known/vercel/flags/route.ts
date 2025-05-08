@@ -1,14 +1,11 @@
-import { ApiData, verifyAccess } from "@vercel/flags";
-import { unstable_getProviderData as getProviderData } from "@vercel/flags/next";
-import { NextResponse, type NextRequest } from "next/server";
+import { getProviderData, createFlagsDiscoveryEndpoint } from "flags/next";
 import * as flags from "../../../../lib/flags";
 
-export const runtime = "edge";
-export const dynamic = "force-dynamic";
+// This function handles the authorization check for you
+export const GET = createFlagsDiscoveryEndpoint((request) => {
+  // your previous logic in here to gather your feature flags
+  const apiData = getProviderData(flags);
 
-export async function GET(request: NextRequest) {
-  const access = await verifyAccess(request.headers.get("Authorization"));
-  if (!access) return NextResponse.json(null, { status: 401 });
-
-  return NextResponse.json<ApiData>(getProviderData(flags));
-}
+  // return the ApiData directly, without a NextResponse.json object.
+  return apiData;
+});

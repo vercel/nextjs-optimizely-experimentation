@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import type { NextFetchEvent, NextRequest } from "next/server";
-import { unstable_precompute as precompute } from "@vercel/flags/next";
+import { precompute } from "flags/next";
 import { precomputeFlags } from "./lib/flags";
 
 export const config = {
@@ -17,7 +17,7 @@ export async function middleware(request: NextRequest, event: NextFetchEvent) {
 
   // decide precompute flags for the homepage only
   if (request.nextUrl.pathname === "/") {
-    const code = await precompute(precomputeFlags, context);
+    const code = await precompute(precomputeFlags);
 
     // rewrites the request to the variant for this flag combination
     const nextUrl = new URL(

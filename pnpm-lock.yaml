@@ -36,9 +36,6 @@ importers:
       '@vercel/edge-config':
         specifier: ^1.2.1
         version: 1.4.0
-      '@vercel/flags':
-        specifier: ^2.6.3
-        version: 2.6.3(next@15.0.3-canary.6(react-dom@19.0.0-rc-02c0e824-20241028(react@19.0.0-rc-02c0e824-20241028))(react@19.0.0-rc-02c0e824-20241028))(react-dom@19.0.0-rc-02c0e824-20241028(react@19.0.0-rc-02c0e824-20241028))(react@19.0.0-rc-02c0e824-20241028)
       '@vercel/toolbar':
         specifier: 0.1.24
         version: 0.1.24(next@15.0.3-canary.6(react-dom@19.0.0-rc-02c0e824-20241028(react@19.0.0-rc-02c0e824-20241028))(react@19.0.0-rc-02c0e824-20241028))(react@19.0.0-rc-02c0e824-20241028)
@@ -876,23 +873,6 @@ packages:
       '@opentelemetry/api': ^1.7.0
     peerDependenciesMeta:
       '@opentelemetry/api':
-        optional: true
-
-  '@vercel/flags@2.6.3':
-    resolution: {integrity: sha512-knLDYS8MCc/zx4FF6KRzHQzAKdo8VQ3V0PEBI5WvRlFIhcqhcEomxHoK41/xMnNEQvUzETACHw610/i/pVwYSA==}
-    peerDependencies:
-      '@sveltejs/kit': '*'
-      next: '*'
-      react: '*'
-      react-dom: '*'
-    peerDependenciesMeta:
-      '@sveltejs/kit':
-        optional: true
-      next:
-        optional: true
-      react:
-        optional: true
-      react-dom:
         optional: true
 
   '@vercel/toolbar@0.1.24':
@@ -3145,14 +3125,6 @@ snapshots:
   '@vercel/edge-config@1.4.0':
     dependencies:
       '@vercel/edge-config-fs': 0.1.0
-
-  '@vercel/flags@2.6.3(next@15.0.3-canary.6(react-dom@19.0.0-rc-02c0e824-20241028(react@19.0.0-rc-02c0e824-20241028))(react@19.0.0-rc-02c0e824-20241028))(react-dom@19.0.0-rc-02c0e824-20241028(react@19.0.0-rc-02c0e824-20241028))(react@19.0.0-rc-02c0e824-20241028)':
-    dependencies:
-      jose: 5.2.1
-    optionalDependencies:
-      next: 15.0.3-canary.6(react-dom@19.0.0-rc-02c0e824-20241028(react@19.0.0-rc-02c0e824-20241028))(react@19.0.0-rc-02c0e824-20241028)
-      react: 19.0.0-rc-02c0e824-20241028
-      react-dom: 19.0.0-rc-02c0e824-20241028(react@19.0.0-rc-02c0e824-20241028)
 
   '@vercel/toolbar@0.1.24(next@15.0.3-canary.6(react-dom@19.0.0-rc-02c0e824-20241028(react@19.0.0-rc-02c0e824-20241028))(react@19.0.0-rc-02c0e824-20241028))(react@19.0.0-rc-02c0e824-20241028)':
     dependencies:

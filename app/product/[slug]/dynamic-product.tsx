@@ -12,7 +12,7 @@ import { Label } from "@/components/ui/label";
 import { showBuyNowFlag } from "@/lib/flags";
 import AddToCartButton from "@/components/add-to-cart";
 import BuyNowButton from "@/components/buy-now";
-import { FlagValues } from "@vercel/flags/react";
+import { FlagValues } from "flags/react";
 import { notFound } from "next/navigation";
 import { get } from "@vercel/edge-config";
 

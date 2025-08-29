@@ -1,8 +1,8 @@
 import optimizely from "@optimizely/optimizely-sdk";
-import { flag } from "flags/next";
-import { getShopperFromHeaders } from "./utils";
 import { get } from "@vercel/edge-config";
+import { flag } from "flags/next";
 import { dispatchEvent } from "./event-dispatcher";
+import { getShopperFromHeaders } from "./utils";
 
 export const showBuyNowFlag = flag<{
   enabled: boolean;

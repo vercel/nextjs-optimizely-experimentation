@@ -1,5 +1,5 @@
 import type { Event } from "@optimizely/optimizely-sdk";
-import { waitUntil } from "@vercel/functions";
+import { after } from "next/server";
 
 /**
  * Web standards friendly event dispatcher for Optimizely
@@ -19,7 +19,7 @@ export async function dispatchEvent(
 	const url = new URL(event.url);
 	const data = JSON.stringify(event.params);
 
-	waitUntil(
+	after(
 		fetch(url, {
 			method: "POST",
 			body: data,

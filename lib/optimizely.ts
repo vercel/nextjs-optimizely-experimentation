@@ -3,33 +3,35 @@ import optimizely from "@optimizely/optimizely-sdk";
 import { get } from "@vercel/edge-config";
 import { after } from "next/server";
 
-let optimizelyClient: Client | null = null;
-
-export async function ensureOptimizely() {
-	if (optimizelyClient) {
-		return optimizelyClient;
-	}
-
+async function initOptimizely(): Promise<Client> {
 	const datafile = await get("datafile");
 
 	if (!datafile) {
 		throw new Error("Failed to retrieve datafile from Vercel Edge Config");
 	}
 
-	optimizelyClient = optimizely.createInstance({
+	const client = optimizely.createInstance({
 		datafile: datafile as object,
-		eventDispatcher: {
-			dispatchEvent,
-		},
+		eventDispatcher: { dispatchEvent },
 	});
 
-	if (!optimizelyClient) {
+	if (!client) {
 		throw new Error("Failed to create Optimizely client");
 	}
 
-	await optimizelyClient.onReady({ timeout: 500 });
+	await client.onReady({ timeout: 500 });
+	return client;
+}
 
-	return optimizelyClient;
+const optimizelyClientPromise: Promise<Client> = initOptimizely();
+
+/**
+ * Returns a singleton Optimizely client backed by a top-level Promise.
+ * This collapses concurrent initialization to one in-flight promise,
+ * preventing race conditions that could create multiple clients.
+ */
+export function ensureOptimizely(): Promise<Client> {
+	return optimizelyClientPromise;
 }
 
 /**

@@ -2,6 +2,7 @@ import optimizely from "@optimizely/optimizely-sdk";
 import { flag } from "flags/next";
 import { getShopperFromHeaders } from "./utils";
 import { get } from "@vercel/edge-config";
+import { dispatchEvent } from "./event-dispatcher";
 
 export const showBuyNowFlag = flag<{
   enabled: boolean;
@@ -26,7 +27,7 @@ export const showBuyNowFlag = flag<{
       const client = optimizely.createInstance({
         datafile: datafile as object,
         eventDispatcher: {
-          dispatchEvent: (event) => {},
+          dispatchEvent,
         },
       });
 
@@ -77,7 +78,7 @@ export const showPromoBannerFlag = flag<boolean>({
       const client = optimizely.createInstance({
         datafile: datafile as object,
         eventDispatcher: {
-          dispatchEvent: (event) => {},
+          dispatchEvent,
         },
       });
 

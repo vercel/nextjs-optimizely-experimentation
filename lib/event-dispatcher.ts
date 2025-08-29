@@ -3,9 +3,7 @@ import { after } from "next/server";
 
 /**
  * Web standards friendly event dispatcher for Optimizely
- * uses `waitUntil` to avoid blocking the visitor's page load
- * @param event
- * @returns
+ * uses `after` to avoid blocking the visitor's page load
  */
 export async function dispatchEvent(
 	event: Event,
@@ -19,21 +17,20 @@ export async function dispatchEvent(
 	const url = new URL(event.url);
 	const data = JSON.stringify(event.params);
 
-	after(
-		fetch(url, {
-			method: "POST",
-			body: data,
-			headers: {
-				"Content-Type": "application/json",
-			},
-		})
-			.then((response) => {
-				if (response.ok) {
-					callback?.({ statusCode: response.status });
-				}
-			})
-			.catch((error) => {
-				console.error("Error dispatching event:", error);
-			}),
-	);
+	after(async () => {
+		try {
+			const response = await fetch(url, {
+				method: "POST",
+				body: data,
+				headers: {
+					"Content-Type": "application/json",
+				},
+			});
+			if (response.ok) {
+				callback?.({ statusCode: response.status });
+			}
+		} catch (error) {
+			console.error("Error dispatching event:", error);
+		}
+	});
 }

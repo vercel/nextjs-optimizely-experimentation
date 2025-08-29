@@ -27,10 +27,14 @@ export async function dispatchEvent(
 				"Content-Type": "application/json",
 				"Content-Length": data.length.toString(),
 			},
-		}).then((response) => {
-			if (response.ok) {
-				callback?.({ statusCode: response.status });
-			}
-		}),
+		})
+			.then((response) => {
+				if (response.ok) {
+					callback?.({ statusCode: response.status });
+				}
+			})
+			.catch((error) => {
+				console.error("Error dispatching event:", error);
+			}),
 	);
 }

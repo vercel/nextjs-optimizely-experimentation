@@ -25,7 +25,6 @@ export async function dispatchEvent(
 			body: data,
 			headers: {
 				"Content-Type": "application/json",
-				"Content-Length": data.length.toString(),
 			},
 		})
 			.then((response) => {

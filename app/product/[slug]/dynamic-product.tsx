@@ -135,7 +135,13 @@ export const DynamicProduct = async (props: {
 };
 
 const Stock = async ({ slug }: { slug: string }) => {
-  const stock = await get("stock");
+  let stock;
+  try {
+    stock = await get("stock");
+  } catch (error) {
+    // Edge Config not available, return null
+    return null;
+  }
   await new Promise((resolve) => setTimeout(resolve, 1000));
 
   if (!stock || !(stock as Record<string, any>)[slug]) return;

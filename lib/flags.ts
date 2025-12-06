@@ -14,10 +14,16 @@ export const showBuyNowFlag = flag<{
     { label: "Show", value: { enabled: true } },
   ],
   async decide({ headers }) {
-    const datafile = await get("datafile");
+    let datafile;
+    try {
+      datafile = await get("datafile");
+    } catch (error) {
+      // Edge Config not available, return default
+      return { enabled: false, buttonText: "" };
+    }
 
     if (!datafile) {
-      throw new Error("Failed to retrive datafile from Vercel Edge Config");
+      return { enabled: false, buttonText: "" };
     }
 
     let flag = { enabled: false, buttonText: "" };
@@ -65,10 +71,16 @@ export const showPromoBannerFlag = flag<boolean>({
     { value: true, label: "Show" },
   ],
   async decide({ headers }) {
-    const datafile = await get("datafile");
+    let datafile;
+    try {
+      datafile = await get("datafile");
+    } catch (error) {
+      // Edge Config not available, return default
+      return false;
+    }
 
     if (!datafile) {
-      throw new Error("Failed to retrieve datafile from Vercel Edge Config");
+      return false;
     }
 
     let flag = false;

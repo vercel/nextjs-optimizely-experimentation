@@ -3,7 +3,6 @@ import { Package2Icon } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "./ui/button";
-import VercelLogo from "@/public/vercel-logotype-dark.png";
 
 export default function Header() {
   return (
@@ -44,7 +43,7 @@ export default function Header() {
           </Link>
         </Button>
         <Link target="_blank" href="https://vercel.com">
-          <Image className="h-7 w-fit" src={VercelLogo} alt="Vercel Logo" />
+          <Image className="h-7 w-fit" src="/vercel-logotype-dark.png" width={100} height={28} alt="Vercel Logo" />
         </Link>
       </nav>
     </header>

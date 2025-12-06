@@ -88,7 +88,7 @@ async function verifyOptimizelyWebhook(
       Buffer.from(digest, "hex")
     );
   } catch (error) {
-    console.error("Error verifying webhook:", error.message);
+    console.error("Error verifying webhook:", error instanceof Error ? error.message : String(error));
     return false;
   }
 }

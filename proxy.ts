@@ -7,7 +7,7 @@ export const config = {
   matcher: ["/", "/product/:path*", "/cart", "/success"],
 };
 
-export async function middleware(request: NextRequest, event: NextFetchEvent) {
+export async function proxy(request: NextRequest, event: NextFetchEvent) {
   let response = NextResponse.next();
 
   const context = {
